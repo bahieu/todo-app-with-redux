@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Khái niệm
 
-## Available Scripts
+- Redux là một predictable state manager tool cho các ứng dụng js.
+- Nó giúp các ứng dụng hoạt động 1 cách nhất quán, chạy trong các môi trường khác nhau( client, server and native) và dễ dàng để test.
+- Redux ra đời lấy cảm hứng từ tư tưởng của ngôn ngữ Elm và kiến trúc Flux của FB
+- Với Redux, state của ứng dụng được giữ trong 1 nơi được gọi là store và mỗi component đều có thể access bất kỳ state nào mà chúng muốn từ store này.
+- Cách mà Redux hoạt động là khá đơn giản. Nó có 1 store lưu trữ toàn bộ state của app. Mỗi component có thể access trực tiếp đến state được lưu trữ thay vì phải sent drop down props từ component này đến component khác
+- Redux có 3 thành phần : Actions, Store, Reducers
 
-In the project directory, you can run:
+## Tại sao nên dùng Redux
 
-### `npm start`
+- Quản lý Global state
+	- Các components tại mọi nơi trong ứng dụng có thể truy xuất và cập nhật
+	- Giải quyết vấn đề của React khi muốn truyền dữ liệu vào các cấp con cháu
+- Dễ dàng debug
+- Xữ lý caching dữ liệu từ server
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Vì sao phải sử dụng Redux Toolkit?
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Sinh ra để giải quyết các vấn đề đối với Redux Core
+	- Việc cấu hình(config) Redux phức tạp
+	- Phải cài thủ công nhiều packages để Redux có thể hoạt động hiệu quả
+	- Redux yêu cầu rất nhiều boilerplate code ( những code lặp đi lặp lại )
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Khi nào nên sử dụng Redux?
 
-### `npm run build`
+- Redux sẽ rất hữu dụng đối với các trường hợp sau đây : 
+	- Dự án có số lượng lớn state và các state được sử dụng nhiều nơi
+	- State được cập nhật thường xuyên 
+	- Logic code cập nhật state phức tạp
+	- Ứng dụng có số lượng code trung bình hoặc lớn và có nhiều người làm chung
+	- Cần debug và muốn xem cách state được cập nhật tại bất kì khoảng thời gian nào
+	- Note: không phải lúc nào cũng nên sử dụng Redux
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Actions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Được hiểu đơn giản là các events. 
+- Chúng là cách chúng ta gửi data (user vs app, API calls, từ form submission) từ app đến redux store 
+- Actions được gửi bằng cách sử dụng store.dispatch() method.
+- Chúng phải có 1 type property để biểu lộ loại action để thực hiện.
+- Chúng phải có 1 payload để chứa thông tin
+- Actions được tạo thông qua 1 action creator
+ 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Reducers
 
-### `npm run eject`
+- Là các function nguyên thủy chúng lấy state hiện tại của app, thực hiện 1 action và trả về 1 state mới
+- Những states này được lưu như những objects và chúng định rõ cách state của 1 ứng dụng thay đổi trong việc phản hồi 1 action được gửi đến store
+- Những quy ước:
+	- Giá trị state mới luôn luôn được tính toán dựa trên giá trị của state trước đó
+	- Chúng ta không bao giờ được thay đổi trực tiếp giá trị của state hiện tại mà ta phải tạo ra 1 bản copy và cập nhật vào
+	- Không được có 1 đoạn code bất đồng bộ nào trong reducer
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##  Store
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Store lưu trạng thái của ứng dụng và nó là duy nhất trong bất kì một ứng dụng redux nào	
+- Có thể access các state được lưu, update state, đăng ký hoặc hủy đăng ký các listeners thông qua helper methods
