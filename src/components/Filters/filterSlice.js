@@ -1,7 +1,7 @@
 const initState = {
   search: "",
   status: "All",
-  priority: [],
+  priorities: [],
 };
 
 const filterReducer = (state = initState, action) => {
@@ -19,7 +19,7 @@ const filterReducer = (state = initState, action) => {
     case "filters/prioritiesFilterChange":
       return {
         ...state,
-        priority: action.payload,
+        priorities: action.payload,
       };
     default:
       return state;
