@@ -6,12 +6,11 @@ import Todo from "../Todo";
 import { addTodo } from "../../redux/actions";
 import { todoRemainingSelector } from "../../redux/selectors";
 
-
 export default function TodoList() {
-  const [todoName, setTodoName] = useState(' ');
+  const [todoName, setTodoName] = useState("");
   const [priority, setPriority] = useState("Medium");
 
-  const todoList = useSelector(todoRemainingSelector); 
+  const todoList = useSelector(todoRemainingSelector);
 
   const dispatch = useDispatch();
 
@@ -20,12 +19,12 @@ export default function TodoList() {
       addTodo({
         id: uuidv4(),
         name: todoName,
-        completed: false,
         priority: priority,
+        completed: false,
       })
     );
-    setTodoName(' ')
-    setPriority ('Medium')
+    setTodoName(" ");
+    setPriority("Medium");
   };
 
   const handleInputChange = (e) => {
@@ -38,17 +37,24 @@ export default function TodoList() {
   return (
     <Row style={{ height: "calc(100% - 40px)" }}>
       <Col span={24} style={{ height: "calc(100% - 40px)", overflowY: "auto" }}>
-        {todoList.map((todo) => 
-          <Todo 
-          key={todo.id}
-          name={todo.name} 
-          priority={todo.priority} />
-        )}
+        {todoList.map((todo) => (
+          <Todo
+            key={todo.id}
+            id={todo.id}
+            name={todo.name}
+            priority={todo.priority}
+            completed={todo.completed}
+          />
+        ))}
       </Col>
       <Col span={24}>
         <Input.Group style={{ display: "flex" }} compact>
           <Input value={todoName} onChange={handleInputChange} />
-          <Select defaultValue="Medium" onChange={handlePriorityChange}>
+          <Select
+            defaultValue="Medium"
+            value={priority}
+            onChange={handlePriorityChange}
+          >
             <Select.Option value="High" label="High">
               <Tag color="red">High</Tag>
             </Select.Option>
